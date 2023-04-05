@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&display=swap');
 @import url('reset.css');
 
 @font-face {
@@ -5,14 +6,155 @@
     src: url(../assets/fonts/Norse-Bold.otf);
 }
 
+:root {
+    /* SYSTEM FONTS */
+    --system-ui: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol';
+
+    /* COLORS */
+    --white: #e6e6e6;
+    --gray: #d5d5d5;
+    --yellow-lt: #eed9c3;
+    --yellow: #e3b261;
+    --green: #a78347;
+    --green-dk: #353535;
+    --blue: #111827;
+
+    /* SIZING */
+    --banner-w: 35vw;
+    --form-w: 65vw;
+    --min-w: 380px;
+    --max-w: 720px;
+}
+
 body {
-    background: #000;
-    color: #ff0086;
-    font-family: 'norse', sans-serif;
+    background: var(--blue);
+    color: var(--gray);
+    font-family: 'Roboto Slab', sans-serif;
     font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+a {
+    text-decoration: none;
+    color: var(--yellow-lt);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--yellow);
+}
+
+header {
+    background: #111827dd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+    position: sticky;
+    top: 0vh;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 h1 {
+    /* font-family: 'norse'; */
     font-size: 2rem;
-    color: #ff00ff;
+    font-weight: 700;
+    color: var(--yellow);
+    padding-left: 16px;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.sidebar {
+    min-width: 360px;
+    height: calc(100vh - (52px + 96px));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+}
+
+.schedule h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--yellow);
+    padding-left: 96px;
+    padding-bottom: 32px;
+}
+
+.schedule h3 {
+    background: url('../assets/images/line-thin.svg') no-repeat top 12px left -32px;
+    background-opacity: 0.4;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--yellow-lt);
+    padding-left: 96px;
+    padding-bottom: 24px;
+}
+
+.schedule h3:active {
+    background: url('../assets/images/line-thick.svg') no-repeat top 12px left -32px;
+    background-opacity: 0.4;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--yellow-lt);
+    padding-left: 96px;
+    padding-bottom: 24px;
+}
+
+.schedule ul {
+    padding-bottom: 48px;
+}
+
+.schedule li {
+    padding-left: 96px;
+    padding-bottom: 24px;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: var(--yellow);
+    padding-left: 32px;
+}
+
+footer img {
+    width: 24px;
+    margin: 0 8px;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.cards {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }

@@ -14,7 +14,7 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 ## Screenshot
 
-![Screenshot](https://github.com/hello-damiro/todo/blob/main/assets/screenshot.png?raw=true)
+![Screenshot](https://github.com/hello-damiro/todo/blob/main/src/assets/images/screenshot.png?raw=true)
 
 </br>
 

@@ -199,8 +199,43 @@
             <div class="card">Exercise daily</div> -->
         </div>
     </div>
-    <div class="curtain hidden">
-        <div class="add-card">hello</div>
+    <div>
+        <div class="create-container">
+            <div class="create-card">
+                <fieldset>
+                    <div class="form-field">
+                        <label for="add-project-title">Title</label>
+                        <input id="add-project-title" type="text" placeholder="Project Title">
+                        <p class="alert"></p>
+                    </div>
+                    <div class="form-field">
+                        <label for="add-project-due">Due date</label>
+                        <input id="add-project-due" type="date">
+                        <p class="alert"></p>
+                    </div>
+                    <h4 class="description">Add Tasks</h4>
+                    <div class="form-field">
+                        <input class="add-project-task" type="text" placeholder="Todo">
+                    </div>
+                    <h4 class="description">Note</h4>
+                    <div class="form-field">
+                        <textarea id="add-project-note" rows="4" placeholder="Your note here ..."></textarea>
+                    </div>
+                    <input type="submit" id="add-project-button" value="">
+                </fieldset>
+                <div class="add-project-settings">
+                    <select class="add-project-color" name="Color">
+                        <option value="posit-gray">White</option>
+                        <option value="posit-yellow">Yellow</option>
+                        <option value="posit-blue">Blue</option>
+                        <option value="posit-green">Green</option>
+                        <option value="posit-pink">Pink</option>
+                    </select>
+                    <div class="add-project-bookmark">Bookmark</div>
+                </div>
+            </div>
+        </div>
+        <div class="curtain"></div>
     </div>
     <footer>
         <a href="https://theodinproject.com">

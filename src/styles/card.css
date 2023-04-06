@@ -4,6 +4,7 @@
     padding: 0 32px;
 }
 
+label,
 .em {
     font-size: 1rem;
     text-transform: uppercase;
@@ -69,7 +70,6 @@
     margin: 32px 8px 8px 8px;
     border-radius: 4px;
     position: relative;
-    bottom: 0;
 }
 
 .bookmark {

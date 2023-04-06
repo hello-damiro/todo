@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&display=swap');
 @import url('reset.css');
-
-@font-face {
-    font-family: norse;
-    src: url(../assets/fonts/Norse-Bold.otf);
-}
+/* @import url('card.css'); */
 
 :root {
     /* SYSTEM FONTS */
@@ -20,11 +16,10 @@
     --green-dk: #353535;
     --blue: #111827;
 
+    --blue-tr: #111827dd;
+
     /* SIZING */
-    --banner-w: 35vw;
-    --form-w: 65vw;
-    --min-w: 380px;
-    --max-w: 720px;
+    --sidebar-w: 320px;
 }
 
 body {
@@ -32,9 +27,6 @@ body {
     color: var(--gray);
     font-family: 'Roboto Slab', sans-serif;
     font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 }
 
 a {
@@ -48,14 +40,17 @@ a:hover {
 }
 
 header {
-    background: #111827dd;
+    z-index: 100;
+    background: var(--blue-tr);
+    backdrop-filter: blur(4px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 32px;
-    position: sticky;
-    top: 0vh;
+    position: fixed;
+    width: calc(100% - 64px);
+    top: 0;
 }
 
 .logo {
@@ -65,7 +60,6 @@ header {
 }
 
 h1 {
-    /* font-family: 'norse'; */
     font-size: 2rem;
     font-weight: 700;
     color: var(--yellow);
@@ -75,65 +69,58 @@ h1 {
 .content {
     width: 100%;
     height: 100%;
+    margin-top: 120px;
     display: flex;
+    flex: 1;
 }
 
 .sidebar {
-    min-width: 360px;
-    height: calc(100vh - (52px + 96px));
+    min-width: var(--sidebar-w);
+    margin-right: 32px;
+    margin-bottom: 68px;
+    position: sticky;
+    top: 120px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.schedule {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
     justify-content: center;
+    /* TODO: ht < vh ? 100%, j-c:centr : calc() */
+    /* height: 100%; */
+    height: calc(100vh - (120px + 68px));
 }
 
-.schedule h2 {
+.sidebar h2 {
     font-size: 2rem;
     font-weight: 400;
     color: var(--yellow);
-    padding-left: 96px;
+    padding-left: 100px;
     padding-bottom: 32px;
 }
 
-.schedule h3 {
+.sidebar h3 {
     background: url('../assets/images/line-thin.svg') no-repeat top 12px left -32px;
     background-opacity: 0.4;
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--yellow-lt);
-    padding-left: 96px;
+    padding-left: 100px;
     padding-bottom: 24px;
 }
 
-.schedule h3:active {
-    background: url('../assets/images/line-thick.svg') no-repeat top 12px left -32px;
-    background-opacity: 0.4;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--yellow-lt);
-    padding-left: 96px;
-    padding-bottom: 24px;
-}
-
-.schedule ul {
+.sidebar ul {
     padding-bottom: 48px;
 }
 
-.schedule li {
-    padding-left: 96px;
+.sidebar li {
+    padding-left: 120px;
     padding-bottom: 24px;
 }
 
 .projects {
-    background: red;
     width: 100%;
     display: grid;
+    /* TODO: if cards.length < 3 ? gtc: 1fr... : gtc: repeat */
+    /* grid-template-columns: 1fr 1fr 1fr; */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px;
     margin-right: 32px;
@@ -144,35 +131,54 @@ h1 {
     background: var(--gray);
     color: black;
     text-align: center;
-    /* height: 100%; */
+    max-width: 33vw;
+    min-width: 300px;
     height: 300px;
+    border-radius: 8px;
+}
+
+.curtain {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    background: var(--blue-tr);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.add-card {
+    background: var(--gray);
+    width: 33vw;
+    /* height: calc(100vh - (120px + 68px)); */
+    position: absolute;
+    top: 120px;
+    margin-left: 32px;
+    color: var(--blue);
+}
+
+.hidden {
+    display: none;
 }
 
 footer {
+    /* background: var(--blue-tr); */
+    z-index: 100;
+    backdrop-filter: blur(4px);
+    min-width: var(--sidebar-w);
+    position: fixed;
+    bottom: 0px;
     display: flex;
     align-items: center;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    color: var(--yellow);
+    padding: 16px 0;
     padding-left: 32px;
+    margin: 0;
 }
 
 footer img {
     width: 24px;
     margin: 0 8px;
-}
-
-.content {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    height: 100%;
-}
-
-.cards {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 }

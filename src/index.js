@@ -1,6 +1,9 @@
 import './styles/style.css';
-import { tripler } from './js/module';
-import { ui } from './js/ui';
+import { UI } from './js/ui';
+import { DB } from './js/db';
 
-activateDom();
-console.log('Hello damiro ' + tripler(8));
+const ui = new UI();
+ui.initialize();
+
+const db = new DB();
+console.log(db.projects[2].note);

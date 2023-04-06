@@ -189,23 +189,15 @@
             </div>
 
             <div class="card">Add Button</div>
-            <!-- <div class="card">Check email</div>
-            <div class="card">Pay bills</div>
-            <div class="card">Call friend</div>
-            <div class="card">Grocery shopping</div>
-            <div class="card">Water plants</div>
-            <div class="card">Write report</div>
-            <div class="card">Walk dog</div>
-            <div class="card">Exercise daily</div> -->
         </div>
     </div>
-    <div>
+    <div class="hidden">
         <div class="create-container">
             <div class="create-card">
                 <fieldset>
                     <div class="form-field">
                         <label for="add-project-title">Title</label>
-                        <input id="add-project-title" type="text" placeholder="Project Title">
+                        <input id="add-project-title" type="text" placeholder="Project Title Here">
                         <p class="alert"></p>
                     </div>
                     <div class="form-field">
@@ -214,8 +206,19 @@
                         <p class="alert"></p>
                     </div>
                     <h4 class="description">Add Tasks</h4>
-                    <div class="form-field">
+                    <div class="task-field">
+                        <div class="delete-project-task"></div>
                         <input class="add-project-task" type="text" placeholder="Todo">
+                        <div class="prioritize-project-task">Prioritize</div>
+                    </div>
+                    <div class="task-field">
+                        <div class="delete-project-task"></div>
+                        <input class="add-project-task" type="text" placeholder="Todo">
+                        <div class="prioritize-project-task">Prioritize</div>
+                    </div>
+                    <div class="add-task">
+                        <div class="add-task-icon"></div>
+                        <h4>Add Task</h4>
                     </div>
                     <h4 class="description">Note</h4>
                     <div class="form-field">

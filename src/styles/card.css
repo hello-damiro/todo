@@ -47,18 +47,17 @@
     cursor: pointer;
 }
 
-.checked > h5 {
-    background: #fff;
-    /* line-height: 2rem;
-    background: url('../assets/images/task-check-off.svg') no-repeat center left 0px;
-    padding-left: 32px; */
-}
-
 .delete-task {
     background: url('../assets/images/task-close.svg') no-repeat center right 0px;
     width: 24px;
     height: 24px;
     margin-top: 4px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.card li:hover .delete-task {
+    opacity: 1;
 }
 
 .settings {

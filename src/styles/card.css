@@ -73,6 +73,15 @@
     bottom: 0;
 }
 
+.bookmark {
+    background: url('../assets/images/card-bookmark.svg') no-repeat center right 0px;
+    width: 36px;
+    height: 50px;
+    margin-top: -35px;
+    margin-bottom: -15px;
+    margin-left: calc(100% - 46px);
+}
+
 .notify {
     background: url('../assets/images/card-bell.svg') no-repeat center right 0px;
     width: 24px;

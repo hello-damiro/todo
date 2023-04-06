@@ -8,7 +8,7 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 1:** Took about 3 hrs to complete the UI design of the app. Prepared the repo for the project using Webpack boilerplate created the whole day. LOL.
 
-**Day 2:**
+**Day 2:** Completed UI layout of the project-- took me 10hrs. Started figuring out hot to orchestrate classes and functions with JS. Got to dive into activating UI first... I guess.
 
 </br>
 

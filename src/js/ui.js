@@ -1,22 +1,15 @@
+import { $, _$, cardHTML, fieldHTML, emptyCard, colors } from './constants';
 import { DB } from './db';
 
 export class Card {
     constructor() {
-        let $ = (selector) => document.querySelector(selector);
-        let _$ = (selector) => document.querySelectorAll(selector);
-
-        let card =
-            '<div class="card"><div class="bookmark"></div><div class="details"><h3 class="title"></h3><h4 class="due-date"></h4><h4 class="description">Tasks</h4><ul class="tasks"></ul><h4 class="description">Note</h4><p class="note"></p></div><div class="settings"><div class="edit"></div><div class="delete-project"></div></div></div>';
-
-        let emptyCard = '<div class="empty-card"></div>';
-
         this.logo = $('.logo > img');
         this.toggleProjectPanelButton = $('.logo');
         this.addProjectUI = $('.create-container').parentNode;
         this.projectsGrid = $('.projects');
 
         this.db = new DB();
-        this.db.projects.forEach(() => this.projectsGrid.insertAdjacentHTML('beforeend', card));
+        this.db.projects.forEach(() => this.projectsGrid.insertAdjacentHTML('beforeend', cardHTML));
 
         let minCard = 5;
         if (this.db.projects.length < minCard) {
@@ -62,11 +55,11 @@ export class Card {
 
         this.projectTasks.forEach((tesks, index) => {
             for (let i = 0; i < projects[index].tasks.length; i++) {
-                let status = projects[index].tasks[i].status ? 'checked' : '';
+                let isPriority = projects[index].tasks[i].priority ? 'checked' : '';
                 let name = projects[index].tasks[i].name;
                 let task =
                     '<li><h5 class="' +
-                    status +
+                    isPriority +
                     '">' +
                     name +
                     '</h5><div class="delete-task"></div></li>';
@@ -75,7 +68,10 @@ export class Card {
         });
 
         this.projectNotes.forEach((note, index) => {
-            note.textContent = projects[index].note;
+            if (projects[index].note == '') {
+            } else {
+                note.textContent = projects[index].note;
+            }
         });
     }
 
@@ -88,13 +84,13 @@ export class Card {
         });
     }
 
-    toggleTaskStatus() {
+    toggleTaskPriority() {
         this.projectTasks.forEach((projectTask, projectIndex) => {
             const tasks = projectTask.querySelectorAll('li');
             tasks.forEach((task, taskIndex) => {
-                const status = task.querySelector('h5');
-                status.addEventListener('click', () => status.classList.toggle('checked'));
-                // TODO: Status should reflect on DB array
+                const priority = task.querySelector('h5');
+                priority.addEventListener('click', () => priority.classList.toggle('checked'));
+                // TODO: priority should reflect on DB array
             });
         });
     }
@@ -103,27 +99,19 @@ export class Card {
         this.projectTasks.forEach((projectTask, projectIndex) => {
             const tasks = projectTask.querySelectorAll('li');
             tasks.forEach((task, taskIndex) => {
-                const status = task.querySelector('.delete-task');
+                const deleteTask = task.querySelector('.delete-task');
                 console.log(
-                    'card ' + projectIndex + ' / ' + taskIndex + ' : ' + status.textContent
+                    'card ' + projectIndex + ' / ' + taskIndex + ' : ' + deleteTask.textContent
                 );
             });
         });
     }
 
     applyColor() {
-        this.colors = {
-            white: '#E6E6E6',
-            yellow: '#FEFFC1',
-            blue: '#6DE5FF',
-            green: '#B7F2A9',
-            pink: '#FFBEDC',
-        };
-
         this.projects.forEach((card, index) => {
             let color = this.db.projects[index].color;
             if (color === '') color = 'white';
-            card.style.backgroundColor = this.colors[color];
+            card.style.backgroundColor = colors[color];
         });
     }
 
@@ -132,36 +120,79 @@ export class Card {
         this.applyColor();
         this.toggleAddProjectUI();
         this.toggleProjectBookmark();
-        this.toggleTaskStatus();
+        this.toggleTaskPriority();
     }
 }
 
 export class AddCard {
     constructor() {
-        let $ = (selector) => document.querySelector(selector);
-        let _$ = (selector) => document.querySelectorAll(selector);
-
-        this.field =
-            '<div class="task-field"><div class="delete-project-task"></div><input class="add-project-task" type="text" placeholder="Todo"><div class="prioritize-project-task">Prioritize</div></div>';
-
-        this.taskList = $('.task-lists');
+        this.createCard = $('.create-card');
+        this.projectTitle = $('#add-project-title');
+        this.projectDueDate = $('#add-project-due');
+        this.projectTaskList = $('.task-lists');
         this.addFieldButton = $('.add-task');
+        this.projectNote = $('#add-project-note');
+        this.projectColor = $('.add-project-color');
+        this.projectBookmark = $('.add-project-bookmark');
+        this.addProjectButton = $('#add-project-button');
     }
 
-    async addField() {
+    getProjectTitle() {
+        return this.projectTitle.value;
+    }
+
+    getProjectDueDate() {
+        return this.projectDueDate.value ? this.projectDueDate.value : 'NOW';
+    }
+
+    async addTaskField() {
         await this.addFieldButton.addEventListener('click', () => {
-            this.taskList.insertAdjacentHTML('beforeend', this.field);
+            this.projectTaskList.insertAdjacentHTML('beforeend', fieldHTML);
             const newField = document.querySelector('.task-field:last-child');
             const deleteField = newField.querySelector('.delete-project-task');
             const prioritizeField = newField.querySelector('.prioritize-project-task');
-            deleteField.addEventListener('click', () => this.taskList.removeChild(newField));
-            prioritizeField.addEventListener('click', () => {
-                console.log('prioritized');
-            });
+            deleteField.addEventListener('click', () => this.projectTaskList.removeChild(newField));
+            prioritizeField.addEventListener('click', () =>
+                prioritizeField.classList.toggle('prioritized')
+            );
+        });
+    }
+
+    getProjectTasks() {
+        const tasks = _$('add-project-task');
+        const priority = _$('prioritize-project-task');
+        tasks.forEach((task, index) => {});
+    }
+
+    getProjectBookmark() {
+        this.projectBookmark.addEventListener('click', () => {
+            this.projectBookmark.classList.toggle('bookmarked');
+        });
+    }
+
+    getProjectNotes() {
+        return this.projectNote.value;
+    }
+
+    getProjectColor() {
+        this.projectColor.addEventListener('change', (e) => {
+            this.createCard.style.backgroundColor = colors[e.target.value];
+        });
+    }
+
+    getProjctDetalis() {
+        this.addProjectButton.addEventListener('click', () => {
+            // TODO: check required values
+            console.log('TITLE: ' + this.getProjectTitle());
+            console.log('DUE: ' + this.getProjectDueDate());
         });
     }
 
     initialize() {
-        this.addField();
+        this.addTaskField();
+        this.getProjectDueDate();
+        this.getProjectColor();
+        this.getProjectBookmark();
+        this.getProjctDetalis();
     }
 }

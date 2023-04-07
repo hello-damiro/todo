@@ -92,10 +92,11 @@ export class ListCards {
         this.projectTasks.forEach((projectTask, projectIndex) => {
             const tasks = projectTask.querySelectorAll('li');
             tasks.forEach((task, taskIndex) => {
-                const deleteTask = task.querySelector('.delete-task');
-                console.log(
-                    'card ' + projectIndex + ' / ' + taskIndex + ' : ' + deleteTask.textContent
-                );
+                const parent = task.querySelector('.delete-task').parentNode;
+                const deleteButton = task.querySelector('.delete-task');
+                deleteButton.addEventListener('click', () => {
+                    parent.remove();
+                });
             });
         });
     }
@@ -112,6 +113,10 @@ export class ListCards {
                 this.projectsGrid.insertAdjacentHTML('beforeend', emptyCard);
             }
         }
+    }
+
+    editProject() {
+        this.projectEdits.forEach((editProject, index) => {});
     }
 
     deleteProject() {
@@ -138,6 +143,8 @@ export class ListCards {
         this.toggleAddProjectUI();
         this.toggleProjectBookmark();
         this.toggleTaskPriority();
+        this.deleteTask();
+        this.editProject();
         this.deleteProject();
     }
 }

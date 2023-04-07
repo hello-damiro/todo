@@ -1,7 +1,7 @@
 import { $, _$, fieldHTML, colors } from './constants';
 import { DB } from './db';
 
-export class AddCard {
+export class CreateCard {
     constructor() {
         this.createCard = $('.create-card');
         this.projectTitle = $('#add-project-title');

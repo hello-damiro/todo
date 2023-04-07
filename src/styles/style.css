@@ -128,8 +128,6 @@ h1 {
     width: 100%;
     height: auto;
     display: grid;
-    /* TODO: if cards.length < 3 ? gtc: 1fr... : gtc: repeat */
-    /* grid-template-columns: 1fr 1fr 1fr; */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px;
     margin-right: 32px;
@@ -172,6 +170,7 @@ h1 {
 .create-card {
     background: var(--gray);
     color: var(--blue);
+    min-width: 480px;
     margin: 0 48px 72px 32px;
     padding-top: 32px;
     padding-bottom: 12px;
@@ -179,7 +178,6 @@ h1 {
 }
 
 footer {
-    /* background: var(--blue-tr); */
     z-index: 100;
     backdrop-filter: blur(4px);
     min-width: var(--sidebar-w);

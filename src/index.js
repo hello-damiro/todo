@@ -1,5 +1,5 @@
 import './styles/style.css';
-import { UI } from './js/ui';
+import { Card } from './js/ui';
 
-const ui = new UI();
-ui.initialize();
+const card = new Card();
+card.initialize();

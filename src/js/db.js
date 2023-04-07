@@ -5,6 +5,7 @@ export class DB {
                 title: 'Website Redesign',
                 due_date: '2023-05-30',
                 bookmark: true,
+                color: '',
                 tasks: [
                     { name: 'Analyze website metrics', status: true },
                     { name: 'Define design requirements', status: false },
@@ -18,6 +19,7 @@ export class DB {
                 title: 'Social Media Campaign',
                 due_date: '2023-06-15',
                 bookmark: false,
+                color: 'blue',
                 tasks: [
                     { name: 'Define target audience', status: true },
                     { name: 'Create social media calendar', status: true },
@@ -31,6 +33,7 @@ export class DB {
                 title: 'Mobile App Development',
                 due_date: '2023-07-10',
                 bookmark: false,
+                color: 'pink',
                 tasks: [
                     { name: 'Define app features', status: true },
                     { name: 'Create wireframes and UI designs', status: false },
@@ -44,6 +47,7 @@ export class DB {
                 title: 'Content Marketing',
                 due_date: '2023-08-05',
                 bookmark: false,
+                color: 'green',
                 tasks: [
                     { name: 'Develop content strategy', status: false },
                     { name: 'Create content calendar', status: true },
@@ -57,6 +61,7 @@ export class DB {
                 title: 'Market Research Study',
                 due_date: '2023-09-01',
                 bookmark: false,
+                color: 'blue',
                 tasks: [
                     { name: 'Define research objectives', status: true },
                     { name: 'Develop research methodology', status: true },
@@ -70,6 +75,7 @@ export class DB {
                 title: 'Product Launch',
                 due_date: '2023-10-10',
                 bookmark: false,
+                color: 'white',
                 tasks: [
                     { name: 'Define product features', status: true },
                     { name: 'Develop product positioning', status: false },
@@ -83,6 +89,7 @@ export class DB {
                 title: 'Employee Training Program',
                 due_date: '2023-11-15',
                 bookmark: true,
+                color: 'green',
                 tasks: [
                     { name: 'Assess training needs', status: true },
                     { name: 'Develop training modules', status: false },
@@ -96,6 +103,7 @@ export class DB {
                 title: 'Sales Team Performance',
                 due_date: '2023-12-10',
                 bookmark: false,
+                color: 'yellow',
                 tasks: [
                     { name: 'Analyze sales metrics', status: true },
                     { name: 'Identify areas for improvement', status: false },
@@ -109,6 +117,7 @@ export class DB {
                 title: 'Customer Service Improvement',
                 due_date: '2024-01-15',
                 bookmark: true,
+                color: 'pink',
                 tasks: [
                     { name: 'Analyze customer feedback', status: false },
                     { name: 'Develop service improvement plan', status: false },

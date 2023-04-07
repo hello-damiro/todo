@@ -137,8 +137,8 @@ h1 {
 }
 
 .card {
-    /* background: var(--gray); */
-    background: #6de5ff;
+    background: var(--gray);
+    /* background: #6de5ff; */
     color: var(--blue);
     border-radius: 8px;
     padding: 32px 0 0 0;

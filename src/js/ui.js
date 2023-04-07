@@ -1,33 +1,38 @@
 import { DB } from './db';
 
-export class UI {
+export class Card {
     constructor() {
-        this.$ = (selector) => document.querySelector(selector);
-        this._$ = (selector) => document.querySelectorAll(selector);
+        let $ = (selector) => document.querySelector(selector);
+        let _$ = (selector) => document.querySelectorAll(selector);
 
-        this.card =
+        let card =
             '<div class="card"><div class="bookmark"></div><div class="details"><h3 class="title"></h3><h4 class="due-date"></h4><h4 class="description">Tasks</h4><ul class="tasks"></ul><h4 class="description">Note</h4><p class="note"></p></div><div class="settings"><div class="edit"></div><div class="delete-project"></div></div></div>';
 
-        this.emptyCard = '<div class="empty-card"></div>';
+        let emptyCard = '<div class="empty-card"></div>';
 
-        this.logo = this.$('.logo > img');
-        this.toggleProjectPanelButton = this.$('.logo');
-        this.addProjectUI = this.$('.create-container').parentNode;
-
-        this.projectsGrid = this.$('.projects');
-        this.projectEdits = this._$('.edit');
-        this.projectDeletes = this._$('.delete-project');
+        this.logo = $('.logo > img');
+        this.toggleProjectPanelButton = $('.logo');
+        this.addProjectUI = $('.create-container').parentNode;
+        this.projectsGrid = $('.projects');
 
         this.db = new DB();
-        this.db.projects.forEach(() =>
-            this.projectsGrid.insertAdjacentHTML('beforeend', this.card)
-        );
+        this.db.projects.forEach(() => this.projectsGrid.insertAdjacentHTML('beforeend', card));
 
-        this.projectTitles = this._$('.title');
-        this.projectDueDates = this._$('.due-date');
-        this.projectNotes = this._$('.note');
-        this.projectBookmarks = this._$('.bookmark');
-        this.projectTasks = this._$('.tasks');
+        let minCard = 5;
+        if (this.db.projects.length < minCard) {
+            for (let i = 0; i < minCard - this.db.projects.length; i++) {
+                this.projectsGrid.insertAdjacentHTML('beforeend', emptyCard);
+            }
+        }
+
+        this.projects = _$('.card');
+        this.projectTitles = _$('.title');
+        this.projectDueDates = _$('.due-date');
+        this.projectNotes = _$('.note');
+        this.projectBookmarks = _$('.bookmark');
+        this.projectTasks = _$('.tasks');
+        this.projectEdits = _$('.edit');
+        this.projectDeletes = _$('.delete-project');
     }
 
     toggleAddProjectUI() {
@@ -37,6 +42,7 @@ export class UI {
             this.logo.style.transform = 'rotate(' + rotation + 'deg)';
             this.logo.style.transition = 'transform 0.3s ease-out';
             this.addProjectUI.classList.toggle('hidden');
+            window.scrollTo(0, 0); // Scroll to top of page
         });
     }
 
@@ -47,10 +53,6 @@ export class UI {
 
         this.projectDueDates.forEach((date, index) => {
             date.textContent = projects[index].due_date;
-        });
-
-        this.projectNotes.forEach((note, index) => {
-            note.textContent = projects[index].note;
         });
 
         this.projectBookmarks.forEach((bookmark, index) => {
@@ -68,9 +70,12 @@ export class UI {
                     '">' +
                     name +
                     '</h5><div class="delete-task"></div></li>';
-                // let task = '<li><h5 class="${status}">${name}</h5><div class="delete-task"></div></li>';
                 this.projectTasks[index].insertAdjacentHTML('beforeend', task);
             }
+        });
+
+        this.projectNotes.forEach((note, index) => {
+            note.textContent = projects[index].note;
         });
     }
 
@@ -83,17 +88,50 @@ export class UI {
         });
     }
 
-    toggleTaskStatus(index, status) {
-        const task = this.projectTasks[index].$('h5');
-        task.addEventListener('click', () => {
-            if (status) task.classList.add('checked');
-            else task.classList.remove('checked');
+    toggleTaskStatus() {
+        this.projectTasks.forEach((projectTask, projectIndex) => {
+            const tasks = projectTask.querySelectorAll('li');
+            tasks.forEach((task, taskIndex) => {
+                const status = task.querySelector('h5');
+                status.addEventListener('click', () => status.classList.toggle('checked'));
+                // TODO: Status should reflect on DB array
+            });
+        });
+    }
+
+    deleteTask() {
+        this.projectTasks.forEach((projectTask, projectIndex) => {
+            const tasks = projectTask.querySelectorAll('li');
+            tasks.forEach((task, taskIndex) => {
+                const status = task.querySelector('.delete-task');
+                console.log(
+                    'card ' + projectIndex + ' / ' + taskIndex + ' : ' + status.textContent
+                );
+            });
+        });
+    }
+
+    applyColor() {
+        this.colors = {
+            white: '#E6E6E6',
+            yellow: '#FEFFC1',
+            blue: '#6DE5FF',
+            green: '#B7F2A9',
+            pink: '#FFBEDC',
+        };
+
+        this.projects.forEach((card, index) => {
+            let color = this.db.projects[index].color;
+            if (color === '') color = 'white';
+            card.style.backgroundColor = this.colors[color];
         });
     }
 
     initialize() {
         this.renderProjects(this.db.projects);
+        this.applyColor();
         this.toggleAddProjectUI();
         this.toggleProjectBookmark();
+        this.toggleTaskStatus();
     }
 }

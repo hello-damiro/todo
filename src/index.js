@@ -1,8 +1,9 @@
 import './styles/style.css';
-import { Card, AddCard } from './js/ui';
+import { ListCards } from './js/card-list';
+import { AddCard } from './js/card-add';
 
-const card = new Card();
-card.initialize();
+const listCards = new ListCards();
+listCards.initialize();
 
 const addCard = new AddCard();
 addCard.initialize();

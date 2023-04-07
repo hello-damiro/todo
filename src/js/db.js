@@ -113,7 +113,7 @@ export class DB {
                     { name: 'Analyze customer feedback', status: false },
                     { name: 'Develop service improvement plan', status: false },
                     { name: 'Implement service improvements', status: false },
-                    { name: 'Monitor customer satisfaction', status: false },
+                    { name: 'Monitor customer satisfaction', status: true },
                 ],
                 note: 'Enhance customer experience and satisfaction through effective customer service improvements and training.',
             },

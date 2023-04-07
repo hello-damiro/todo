@@ -37,7 +37,8 @@ label,
 }
 
 .card li {
-    background: var(--hightlight-off);
+    background: url('../assets/images/task-check-off.svg') no-repeat center left 24px;
+    background-color: var(--hightlight-off);
     margin: 0 8px;
     padding: 8px 8px 8px 24px;
     border-radius: 4px;
@@ -49,17 +50,20 @@ label,
 }
 
 .card li:hover {
-    background: var(--hightlight-on);
+    background-color: var(--hightlight-on);
 }
 
 .card li h5 {
     line-height: 1.2rem;
-    background: url('../assets/images/task-check-off.svg') no-repeat center left 0px;
     padding-left: 32px;
 }
 
 .card li h5:hover {
     cursor: pointer;
+}
+
+.checked {
+    background: url('../assets/images/task-check-on.svg') no-repeat center left 0px;
 }
 
 .delete-task {

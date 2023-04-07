@@ -2,16 +2,21 @@ import { DB } from './db';
 
 export class UI {
     constructor() {
-        let $ = (selector) => document.querySelector(selector);
-        let $$ = (selector) => document.querySelectorAll(selector);
+        this.$ = (selector) => document.querySelector(selector);
+        this._$ = (selector) => document.querySelectorAll(selector);
 
-        this.logo = $('.logo > img');
-        this.toggleProjectPanelButton = $('.logo');
-        this.addProjectUI = $('.create-container').parentNode;
+        this.newCard =
+            '<div class="card"><div class="bookmark"></div><div class="details"><h3 class="title"></h3><h4 class="due-date"></h4><h4 class="description">Tasks</h4><ul class="tasks"></ul><h4 class="description">Note</h4><p class="note"></p></div><div class="settings"><div class="edit"></div><div class="delete-project"></div></div></div>';
 
-        this.projectsGrid = $('.projects');
-        this.projectEdits = $$('.edit');
-        this.projectDeletes = $$('.delete-project');
+        this.placebo = '<div class="placebo"></div>';
+
+        this.logo = this.$('.logo > img');
+        this.toggleProjectPanelButton = this.$('.logo');
+        this.addProjectUI = this.$('.create-container').parentNode;
+
+        this.projectsGrid = this.$('.projects');
+        this.projectEdits = this._$('.edit');
+        this.projectDeletes = this._$('.delete-project');
 
         this.db = new DB();
     }
@@ -37,30 +42,31 @@ export class UI {
     }
 
     async renderProjects(projects) {
-        const newCard =
-            '<div class="card"><div class="bookmark"></div><div><h3 class="title"></h3><h4 class="due-date"></h4><h4 class="description">Tasks</h4><ul class="tasks"></ul><h4 class="description">Note</h4><p class="note"></p></div><div class="settings"><div class="edit"></div><div class="delete-project"></div></div></div>';
-        const placebo = '<div class="placebo"></div>';
+        await projects.forEach(() => {
+            this.projectsGrid.insertAdjacentHTML('beforeend', this.newCard);
+        });
 
-        await projects.forEach(() => this.projectsGrid.insertAdjacentHTML('beforeend', newCard));
+        this.projectTitles = this._$('.title');
+        this.projectDueDates = this._$('.due-date');
+        this.projectNotes = this._$('.note');
+        this.projectBookmarks = this._$('.bookmark');
+        this.projectTasks = this._$('.tasks');
 
-        this.projectTitles = document.querySelectorAll('.title');
-        this.projectTitles.forEach((title, index) => (title.textContent = projects[index].title));
+        this.projectTitles.forEach((title, index) => {
+            title.textContent = projects[index].title;
+        });
 
-        this.projectDueDates = document.querySelectorAll('.due-date');
         this.projectDueDates.forEach(
             (date, index) => (date.textContent = projects[index].due_date)
         );
 
-        this.projectNotes = document.querySelectorAll('.note');
         this.projectNotes.forEach((note, index) => (note.textContent = projects[index].note));
 
-        this.projectBookmarks = document.querySelectorAll('.bookmark');
         this.projectBookmarks.forEach((bookmark, index) => {
             if (projects[index].bookmark) this.projectBookmarks[index].classList.remove('hidden');
             else this.projectBookmarks[index].classList.add('hidden');
         });
 
-        this.projectTasks = document.querySelectorAll('.tasks');
         this.projectTasks.forEach((tesks, index) => {
             for (let i = 0; i < projects[index].tasks.length; i++) {
                 let newTask =

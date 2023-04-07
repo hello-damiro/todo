@@ -2,15 +2,25 @@
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0 32px;
+    margin-right: 32px;
+    line-height: 1.8rem;
 }
 
 label,
-.due-date,
 .em {
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     padding: 8px 32px;
+}
+
+.due-date {
+    background: url('../assets/images/card-clock.svg') no-repeat center left 0px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    padding: 8px 24px;
+    margin-left: 32px;
 }
 
 .description {
@@ -61,19 +71,18 @@ label,
     opacity: 0;
 }
 
+.card:hover .settings,
 .card li:hover .delete-task {
     opacity: 1;
 }
 
 .settings {
-    background: var(--hightlight-on);
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 12px;
     padding: 8px 8px;
     margin: 32px 8px 8px 8px;
-    border-radius: 4px;
-    position: relative;
+    opacity: 0;
 }
 
 .bookmark {
@@ -81,30 +90,49 @@ label,
     width: 36px;
     height: 50px;
     margin-top: -35px;
-    margin-bottom: -15px;
-    margin-left: calc(100% - 46px);
+    margin-right: 10px;
+    align-self: flex-end;
+    position: absolute;
     cursor: pointer;
 }
 
+.details {
+}
+
 .notify {
-    background: url('../assets/images/card-bell.svg') no-repeat center right 0px;
+    background: url('../assets/images/card-bell.svg') no-repeat center center;
+    background-color: var(--hightlight-on);
     width: 24px;
     height: 24px;
     margin-top: 4px;
+    padding: 4px;
+    border-radius: 50%;
 }
 
 .edit {
-    background: url('../assets/images/card-edit.svg') no-repeat center right 0px;
+    background: url('../assets/images/card-edit.svg') no-repeat center center;
+    background-color: var(--hightlight-on);
     width: 24px;
     height: 24px;
     margin-top: 4px;
+    padding: 4px;
+    border-radius: 50%;
 }
 
 .delete-project {
-    background: url('../assets/images/card-trash.svg') no-repeat center right 0px;
+    background: url('../assets/images/card-trash.svg') no-repeat center center;
+    background-color: var(--hightlight-on);
     width: 24px;
     height: 24px;
     margin-top: 4px;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.notify:hover,
+.edit:hover,
+.delete-project:hover {
+    background-color: var(--yellow);
 }
 
 .edit:hover,

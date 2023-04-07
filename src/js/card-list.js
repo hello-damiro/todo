@@ -1,17 +1,19 @@
 import { $, _$, cardHTML, emptyCard, colors } from './constants';
+import { CreateCard } from './card-create';
 import { DB } from './db';
+import { delay } from './helpers';
 
 export class ListCards {
     constructor() {
         this.logo = $('.logo > img');
-        this.toggleProjectPanelButton = $('.logo');
+        this.logoButton = $('.logo');
         this.addProjectUI = $('.create-container').parentNode;
         this.projectsGrid = $('.projects');
 
         this.db = new DB();
         this.db.projects.forEach(() => this.projectsGrid.insertAdjacentHTML('beforeend', cardHTML));
 
-        this.projects = _$('.card');
+        this.cards = _$('.card');
         this.projectTitles = _$('.title');
         this.projectDueDates = _$('.due-date');
         this.projectNotes = _$('.note');
@@ -19,20 +21,25 @@ export class ListCards {
         this.projectTasks = _$('.tasks');
         this.projectEdits = _$('.edit');
         this.projectDeletes = _$('.delete-project');
+
+        this.logoRotation = 0;
     }
 
-    toggleAddProjectUI() {
-        let rotation = 0;
-        this.toggleProjectPanelButton.addEventListener('click', () => {
-            rotation += 45;
-            this.logo.style.transform = 'rotate(' + rotation + 'deg)';
-            this.logo.style.transition = 'transform 0.3s ease-out';
-            this.addProjectUI.classList.toggle('hidden');
-            window.scrollTo(0, 0); // Scroll to top of page
+    openAddProjectUI() {
+        this.logoRotation += 45;
+        this.logo.style.transform = 'rotate(' + this.logoRotation + 'deg)';
+        this.logo.style.transition = 'transform 0.3s ease-out';
+        this.addProjectUI.classList.toggle('hidden');
+        window.scrollTo(0, 0);
+    }
+
+    listenLogoButton() {
+        this.logoButton.addEventListener('click', () => {
+            this.openAddProjectUI();
         });
     }
 
-    renderProjects(projects) {
+    renderProjectDetails(projects) {
         this.projectTitles.forEach((title, index) => {
             title.textContent = projects[index].title;
         });
@@ -106,7 +113,7 @@ export class ListCards {
         let projects = _$('.card');
         let minCard = 5;
 
-        emptyCards.forEach((emptyCard, index) => emptyCard.remove());
+        emptyCards.forEach((emptyCard) => emptyCard.remove());
 
         if (projects.length < minCard) {
             for (let i = 0; i < minCard - projects.length; i++) {
@@ -116,35 +123,58 @@ export class ListCards {
     }
 
     editProject() {
-        this.projectEdits.forEach((editProject, index) => {});
+        const addCard = new CreateCard();
+        this.projectEdits.forEach((editProject, index) => {
+            editProject.addEventListener('click', () => {
+                this.openAddProjectUI();
+                addCard.editCard(index);
+            });
+        });
     }
 
     deleteProject() {
         this.projectDeletes.forEach((deleteProject, index) => {
             deleteProject.addEventListener('click', () => {
-                this.projects[index].remove();
+                this.cards[index].remove();
                 this.renderEmptyCard();
                 // TODO: remove from DB
             });
         });
     }
 
-    applyColor() {
-        this.projects.forEach((card, index) => {
-            let color = this.db.projects[index].color;
-            if (color === '') color = 'white';
-            card.style.backgroundColor = colors[color];
+    applyColors() {
+        this.cards.forEach((card, index) => {
+            card.style.backgroundColor = colors[this.getColor(index)];
         });
     }
 
+    getColor(index) {
+        let color = this.db.projects[index].color;
+        if (color == '') color = 'white';
+        return color;
+    }
+
     initialize() {
-        this.renderProjects(this.db.projects);
-        this.applyColor();
-        this.toggleAddProjectUI();
+        // this.renderCards();
+
+        this.renderProjectDetails(this.db.projects);
+        this.renderEmptyCard();
+        this.applyColors();
+        this.listenLogoButton();
         this.toggleProjectBookmark();
         this.toggleTaskPriority();
         this.deleteTask();
         this.editProject();
         this.deleteProject();
+    }
+}
+
+class CardModel {
+    constructor(title, dueDate, tasks, note, isBookmarked) {
+        this.title = title;
+        this.dueDate = dueDate;
+        this.tasks = tasks;
+        this.note = note;
+        this.isBookmarked = isBookmarked;
     }
 }

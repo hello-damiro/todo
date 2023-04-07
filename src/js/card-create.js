@@ -1,4 +1,6 @@
+import { ListCards } from './card-list';
 import { $, _$, fieldHTML, colors } from './constants';
+import { delay } from './helpers';
 import { DB } from './db';
 
 export class CreateCard {
@@ -7,23 +9,62 @@ export class CreateCard {
         this.projectTitle = $('#add-project-title');
         this.projectDueDate = $('#add-project-due');
         this.projectTaskList = $('.task-lists');
-        this.addFieldButton = $('.add-task');
+        this.taskFieldButton = $('.add-task');
         this.projectNote = $('#add-project-note');
         this.projectColor = $('.add-project-color');
         this.projectBookmark = $('.add-project-bookmark');
         this.addProjectButton = $('#add-project-button');
+
+        this.db = new DB();
+        this.projects = this.db.projects;
+
+        // this.listCards = new ListCards();
     }
 
-    async addTaskField() {
-        await this.addFieldButton.addEventListener('click', () => {
-            this.projectTaskList.insertAdjacentHTML('beforeend', fieldHTML);
-            const newField = document.querySelector('.task-field:last-child');
-            const deleteField = newField.querySelector('.delete-project-task');
-            const prioritizeField = newField.querySelector('.prioritize-project-task');
-            deleteField.addEventListener('click', () => this.projectTaskList.removeChild(newField));
-            prioritizeField.addEventListener('click', () =>
-                prioritizeField.classList.toggle('prioritized')
-            );
+    addTaskField() {
+        this.projectTaskList.insertAdjacentHTML('beforeend', fieldHTML);
+        const newField = $('.task-field:last-child');
+        const deleteField = newField.querySelector('.delete-project-task');
+        const prioritizeField = newField.querySelector('.prioritize-project-task');
+        const parent = deleteField.parentNode;
+        deleteField.addEventListener('click', () => parent.remove());
+        prioritizeField.addEventListener('click', () =>
+            prioritizeField.classList.toggle('prioritized')
+        );
+    }
+
+    editCard(index) {
+        this.projectTitle.value = this.projects[index].title;
+        this.projectDueDate.value = this.projects[index].due_date;
+
+        this.taskFields = _$('.task-field');
+        this.taskFields.forEach((field) => field.remove());
+        this.projects[index].tasks.forEach(() => this.addTaskField());
+
+        this.taskFields = _$('.task-field');
+        this.taskFields.forEach((field, i) => {
+            field.querySelector('.add-project-task').value = this.projects[index].tasks[i].name;
+            if (this.projects[index].tasks[i].priority) {
+                field.querySelector('.prioritize-project-task').classList.add('prioritized');
+            } else {
+                field.querySelector('.prioritize-project-task').classList.remove('prioritized');
+            }
+        });
+
+        this.projectNote.value = this.projects[index].note;
+
+        let color = this.db.projects[index].color;
+        if (color == '') color = 'white';
+        this.projectColor.value = color;
+        this.createCard.style.backgroundColor = colors[color];
+
+        if (this.projects[index].bookmark) this.projectBookmark.classList.add('bookmarked');
+        else this.projectBookmark.classList.remove('bookmarked');
+    }
+
+    listenTaskField() {
+        this.taskFieldButton.addEventListener('click', () => {
+            this.addTaskField();
         });
     }
 
@@ -33,12 +74,6 @@ export class CreateCard {
 
     getProjectDueDate() {
         return this.projectDueDate.value ? this.projectDueDate.value : 'NOW';
-    }
-
-    getProjectTasks() {
-        const tasks = _$('add-project-task');
-        const priority = _$('prioritize-project-task');
-        tasks.forEach((task, index) => {});
     }
 
     getProjectBookmark() {
@@ -66,7 +101,7 @@ export class CreateCard {
     }
 
     initialize() {
-        this.addTaskField();
+        this.listenTaskField();
         this.getProjectDueDate();
         this.getProjectColor();
         this.getProjectBookmark();

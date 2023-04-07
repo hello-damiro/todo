@@ -135,3 +135,33 @@ export class Card {
         this.toggleTaskStatus();
     }
 }
+
+export class AddCard {
+    constructor() {
+        let $ = (selector) => document.querySelector(selector);
+        let _$ = (selector) => document.querySelectorAll(selector);
+
+        this.field =
+            '<div class="task-field"><div class="delete-project-task"></div><input class="add-project-task" type="text" placeholder="Todo"><div class="prioritize-project-task">Prioritize</div></div>';
+
+        this.taskList = $('.task-lists');
+        this.addFieldButton = $('.add-task');
+    }
+
+    async addField() {
+        await this.addFieldButton.addEventListener('click', () => {
+            this.taskList.insertAdjacentHTML('beforeend', this.field);
+            const newField = document.querySelector('.task-field:last-child');
+            const deleteField = newField.querySelector('.delete-project-task');
+            const prioritizeField = newField.querySelector('.prioritize-project-task');
+            deleteField.addEventListener('click', () => this.taskList.removeChild(newField));
+            prioritizeField.addEventListener('click', () => {
+                console.log('prioritized');
+            });
+        });
+    }
+
+    initialize() {
+        this.addField();
+    }
+}

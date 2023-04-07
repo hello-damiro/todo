@@ -84,8 +84,8 @@ label,
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    padding: 8px 8px;
-    margin: 32px 8px 8px 8px;
+    padding: 8px;
+    margin: 8px;
     opacity: 0;
 }
 

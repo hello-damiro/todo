@@ -12,6 +12,8 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 3:** Done almost all of of UI functionalities. Started tying different modules like the UI, json data and the processes in between. Still feels I have an unclean code. :(
 
+**Day 4:** Realized that app doesnt need a sidebar and ditched it.
+
 </br>
 
 ## Screenshot

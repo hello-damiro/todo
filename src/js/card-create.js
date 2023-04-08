@@ -1,7 +1,7 @@
-import { ListCards } from './card-list';
 import { $, _$, fieldHTML, colors } from './constants';
-import { delay } from './helpers';
 import { DB } from './db';
+import dayjs from 'dayjs';
+import 'dayjs/locale/en';
 
 export class CreateCard {
     constructor() {
@@ -17,8 +17,6 @@ export class CreateCard {
 
         this.db = new DB();
         this.projects = this.db.projects;
-
-        // this.listCards = new ListCards();
     }
 
     addTaskField() {
@@ -73,7 +71,9 @@ export class CreateCard {
     }
 
     getProjectDueDate() {
-        return this.projectDueDate.value ? this.projectDueDate.value : 'NOW';
+        let date = new Date();
+        this.projectDueDate.value ? (date = this.projectDueDate.value) : date;
+        return dayjs(date).format('DD MMM YYYY');
     }
 
     getProjectBookmark() {

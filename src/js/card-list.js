@@ -1,7 +1,8 @@
 import { $, _$, cardHTML, emptyCard, colors } from './constants';
 import { CreateCard } from './card-create';
 import { DB } from './db';
-import { delay } from './helpers';
+import dayjs from 'dayjs';
+import 'dayjs/locale/en';
 
 export class ListCards {
     constructor() {
@@ -26,8 +27,8 @@ export class ListCards {
         this.logoRotation = 0;
 
         this.date = $('.clock');
-        let date = new Date().toLocaleDateString();
-        this.date.textContent = date;
+        this.currentDate = dayjs().format('DD MMM YYYY');
+        this.date.textContent = this.currentDate;
     }
 
     openAddProjectUI() {
@@ -56,7 +57,7 @@ export class ListCards {
         });
 
         this.projectDueDates.forEach((date, index) => {
-            date.textContent = projects[index].due_date;
+            date.textContent = dayjs(projects[index].due_date).format('DD MMM YYYY');
         });
 
         this.projectBookmarks.forEach((bookmark, index) => {

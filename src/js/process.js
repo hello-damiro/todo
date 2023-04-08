@@ -1,4 +1,4 @@
-import { $, _$ } from './constants';
+import { $, _$, colors, PROCESS_INDEX } from './constants';
 import { DB } from './db';
 
 export class Process {
@@ -17,7 +17,18 @@ export class Process {
         this.projects = this.db.projects;
     }
 
-    createProject() {
+    emptyFields() {
+        this.projectTitle.value = '';
+        this.projectDueDate.value = '';
+        this.taskFields = _$('.task-field');
+        this.taskFields.forEach((field) => field.remove());
+        this.projectNote.value = '';
+        this.projectColor.value = 'white';
+        this.createCard.style.backgroundColor = colors['white'];
+        this.projectBookmark.classList.remove('bookmarked');
+    }
+
+    createProject(index) {
         this.projects.push({
             title: this.projectTitle.value,
             due_date: this.projectDueDate.value,
@@ -26,16 +37,12 @@ export class Process {
             color: this.projectColor.value,
             bookmark: this.projectBookmark.classList.contains('bookmarked'),
         });
-        this.projectTitle.value = '';
-        this.projectDueDate.value = '';
-        this.projectNote.value = '';
-        this.projectColor.value = 'white';
-        this.projectBookmark.classList.remove('bookmarked');
-
+        this.emptyFields();
+        console.log('creating ' + index);
         console.table(this.projects);
     }
 
-    updateProject(index) {}
-
-    initialize() {}
+    deleteProject(index) {
+        console.log('deleting ' + index);
+    }
 }

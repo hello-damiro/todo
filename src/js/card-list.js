@@ -1,8 +1,8 @@
-import { $, _$, cardHTML, emptyCard, colors, CREATE_TYPE } from './constants';
+import { $, _$, cardHTML, emptyCard, colors, PROCESS_TYPE, PROCESS_INDEX } from './constants';
 import { CreateCard } from './card-create';
+import { Process } from './process';
 import { taskListHTML } from './helpers';
 import dayjs from 'dayjs';
-import 'dayjs/locale/en';
 
 export class ListCards {
     constructor() {
@@ -19,6 +19,7 @@ export class ListCards {
         this.listenCurtain();
 
         this.createCard = new CreateCard();
+        this.process = new Process();
     }
 
     setDate() {
@@ -77,7 +78,7 @@ export class ListCards {
         this.editProject(projects);
     }
 
-    openAddProjectUI() {
+    toggleCreatingUI() {
         this.logoRotation += 45;
         this.logo.style.transform = 'rotate(' + this.logoRotation + 'deg)';
         this.logo.style.transition = 'transform 0.3s ease-out';
@@ -88,14 +89,15 @@ export class ListCards {
 
     listenLogoButton() {
         this.logoButton.addEventListener('click', () => {
-            CREATE_TYPE = 'create';
-            this.openAddProjectUI();
+            PROCESS_TYPE = 'create';
+            PROCESS_INDEX = 0;
+            this.toggleCreatingUI();
         });
     }
 
     listenCurtain() {
         this.curtain.addEventListener('click', () => {
-            this.openAddProjectUI();
+            this.toggleCreatingUI();
         });
     }
 
@@ -151,9 +153,11 @@ export class ListCards {
         let projectEdits = _$('.edit');
         projectEdits.forEach((editProject, index) => {
             editProject.addEventListener('click', () => {
-                CREATE_TYPE = 'edit';
-                this.openAddProjectUI();
+                PROCESS_TYPE = 'edit';
+                PROCESS_INDEX = index;
+                this.toggleCreatingUI();
                 this.createCard.editCard(projects[index]);
+                console.log(PROCESS_TYPE + ': ' + PROCESS_INDEX);
             });
         });
     }

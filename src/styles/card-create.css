@@ -91,7 +91,8 @@ textarea::placeholder {
 
 .prioritize-project-task {
     line-height: 2rem;
-    background: url('../assets/images/task-check-off.svg') var(--white) no-repeat center right 8px;
+    background: url('../assets/images/task-check-off.svg') var(--white-tr) no-repeat center right
+        8px;
     padding: 2.5px 34px 2.5px 12px;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
@@ -101,7 +102,7 @@ textarea::placeholder {
 }
 
 .prioritized {
-    background: url('../assets/images/task-check-on.svg') var(--white) no-repeat center right 8px;
+    background: url('../assets/images/task-check-on.svg') var(--white-tr) no-repeat center right 8px;
 }
 
 .add-task {

@@ -12,7 +12,7 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 3:** Done almost all of of UI functionalities. Started tying different modules like the UI, json data and the processes in between. Still feels I have an unclean code. 😒
 
-**Day 4:** Realized that app doesnt need a sidebar and removed it. Formatted dates using `dayjs` (2kB) instead of `date-fns` which is too heavy for a small todo app. Learning hot classes are structured for them to communicate to each other.
+**Day 4:** Realized that app doesnt need a sidebar and removed it. Formatted dates using `dayjs` (2kB) instead of `date-fns` which is too heavy for a small todo app. Learning how classes are structured for them to communicate to each other.
 
 </br>
 

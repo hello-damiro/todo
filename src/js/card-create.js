@@ -1,12 +1,11 @@
-import { $, _$, fieldHTML, colors, CREATE_TYPE } from './constants';
-import { DB } from './db';
-import dayjs from 'dayjs';
-import 'dayjs/locale/en';
+import { $, _$, fieldHTML, colors, PROCESS_TYPE, PROCESS_INDEX } from './constants';
+import { Process } from './process';
 
 export class CreateCard {
     constructor() {
         this.createCard = $('.create-card');
         this.projectTitle = $('#add-project-title');
+        this.titleAlert = $('.alert');
         this.projectDueDate = $('#add-project-due');
         this.projectTaskList = $('.task-lists');
         this.taskFieldButton = $('.add-task');
@@ -18,6 +17,8 @@ export class CreateCard {
         this.listenTaskField();
         this.listenCreateButton();
         this.listenProjectColor();
+
+        this.process = new Process();
     }
 
     addTaskField() {
@@ -86,8 +87,17 @@ export class CreateCard {
 
     listenCreateButton() {
         this.createProjectButton.addEventListener('click', () => {
-            // TODO: check required values
-            console.log('CREATED! ' + CREATE_TYPE);
+            if (this.projectTitle.value != '') {
+                this.titleAlert.textContent = '';
+                if (PROCESS_TYPE == 'create') this.process.createProject(0);
+                else {
+                    this.process.deleteProject(PROCESS_INDEX);
+                    this.process.createProject(PROCESS_INDEX);
+                }
+            } else {
+                this.titleAlert.textContent = 'Title is required';
+            }
+            window.scrollTo(0, 0);
         });
     }
 }

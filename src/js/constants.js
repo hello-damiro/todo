@@ -16,3 +16,5 @@ export const colors = {
     green: '#B7F2A9',
     pink: '#FFBEDC',
 };
+
+export let CREATE_TYPE = 'create'; // create or edit

@@ -30,6 +30,11 @@ body {
     color: var(--gray);
     font-family: 'Roboto Slab', sans-serif;
     font-size: 1rem;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 
 a {
@@ -74,64 +79,11 @@ h1 {
     padding-left: 16px;
 }
 
-.content {
-    width: 100%;
-    height: 100%;
-    margin-top: 120px;
-    display: flex;
-    flex: 1;
-}
-
-.sidebar {
-    min-width: var(--sidebar-w);
-    margin-right: 32px;
-    margin-bottom: 68px;
-    position: sticky;
-    top: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    /* TODO: ht < vh ? 100%, j-c:centr : calc() */
-    /* height: 100%; */
-    height: calc(100vh - (120px + 68px));
-}
-
-.sidebar h2 {
-    font-size: 2rem;
-    font-weight: 400;
-    color: var(--yellow);
-    padding-left: 100px;
-    padding-bottom: 32px;
-}
-
-.sidebar h3 {
-    background: url('../assets/images/line-thin.svg') no-repeat top 12px left -32px;
-    background-opacity: 0.4;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--yellow-lt);
-    padding-left: 100px;
-    padding-bottom: 24px;
-}
-
-.sidebar ul {
-    padding-bottom: 48px;
-}
-
-.sidebar li {
-    padding-left: 120px;
-    padding-bottom: 24px;
-}
-
 .projects {
-    width: 100%;
-    height: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px;
-    margin-right: 32px;
-    margin-bottom: 32px;
+    padding: 120px 32px 32px 32px;
 }
 
 .card {
@@ -178,19 +130,14 @@ h1 {
 }
 
 footer {
-    z-index: 100;
-    backdrop-filter: blur(4px);
-    min-width: var(--sidebar-w);
-    position: fixed;
-    bottom: 0px;
+    position: sticky;
+    top: 100vh;
     display: flex;
     align-items: center;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    padding: 16px 0;
-    padding-left: 32px;
-    margin: 0;
+    padding: 16px 32px;
 }
 
 footer img {

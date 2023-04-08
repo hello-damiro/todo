@@ -79,6 +79,13 @@ h1 {
     padding-left: 16px;
 }
 
+.clock {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: var(--yellow-lt);
+}
+
 .projects {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

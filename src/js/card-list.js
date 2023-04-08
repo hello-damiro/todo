@@ -23,6 +23,10 @@ export class ListCards {
         this.projectDeletes = _$('.delete-project');
 
         this.logoRotation = 0;
+
+        this.clock = $('.clock');
+        let date = new Date().toLocaleDateString();
+        this.clock.textContent = date;
     }
 
     openAddProjectUI() {

@@ -17,6 +17,8 @@ export class ListCards {
         this.setDate();
         this.listenLogoButton();
         this.listenCurtain();
+
+        this.createCard = new CreateCard();
     }
 
     setDate() {
@@ -79,7 +81,7 @@ export class ListCards {
         this.logoRotation += 45;
         this.logo.style.transform = 'rotate(' + this.logoRotation + 'deg)';
         this.logo.style.transition = 'transform 0.3s ease-out';
-        new CreateCard().emptyFields();
+        this.createCard.emptyFields();
         window.scrollTo(0, 0);
         this.addProjectUI.classList.toggle('hidden');
     }
@@ -151,7 +153,7 @@ export class ListCards {
             editProject.addEventListener('click', () => {
                 CREATE_TYPE = 'edit';
                 this.openAddProjectUI();
-                new CreateCard().editCard(projects[index]);
+                this.createCard.editCard(projects[index]);
             });
         });
     }

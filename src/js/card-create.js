@@ -1,4 +1,4 @@
-import { $, _$, fieldHTML, colors } from './constants';
+import { $, _$, fieldHTML, colors, CREATE_TYPE } from './constants';
 import { DB } from './db';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
@@ -87,7 +87,7 @@ export class CreateCard {
     listenCreateButton() {
         this.createProjectButton.addEventListener('click', () => {
             // TODO: check required values
-            console.log('CREATED!');
+            console.log('CREATED! ' + CREATE_TYPE);
         });
     }
 }

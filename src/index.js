@@ -8,9 +8,5 @@ import { DB } from './js/db';
 let projects = new DB().projects;
 let cards = new ListCards();
 
-function initialize() {
-    cards.renderCards(projects);
-    cards.renderProjectDetails(projects);
-}
-
-initialize();
+cards.renderCards(projects);
+cards.renderProjectDetails(projects);

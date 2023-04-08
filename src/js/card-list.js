@@ -21,12 +21,13 @@ export class ListCards {
         this.projectTasks = _$('.tasks');
         this.projectEdits = _$('.edit');
         this.projectDeletes = _$('.delete-project');
+        this.curtain = $('.curtain');
 
         this.logoRotation = 0;
 
-        this.clock = $('.clock');
+        this.date = $('.clock');
         let date = new Date().toLocaleDateString();
-        this.clock.textContent = date;
+        this.date.textContent = date;
     }
 
     openAddProjectUI() {

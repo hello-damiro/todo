@@ -35,8 +35,11 @@ export class ListCards {
         this.logoRotation += 45;
         this.logo.style.transform = 'rotate(' + this.logoRotation + 'deg)';
         this.logo.style.transition = 'transform 0.3s ease-out';
-        this.addProjectUI.classList.toggle('hidden');
+
+        new CreateCard().emptyFields();
+
         window.scrollTo(0, 0);
+        this.addProjectUI.classList.toggle('hidden');
     }
 
     listenLogoButton() {
@@ -135,11 +138,10 @@ export class ListCards {
     }
 
     editProject() {
-        const addCard = new CreateCard();
         this.projectEdits.forEach((editProject, index) => {
             editProject.addEventListener('click', () => {
                 this.openAddProjectUI();
-                addCard.editCard(index);
+                new CreateCard().editCard(index);
             });
         });
     }

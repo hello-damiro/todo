@@ -10,15 +10,21 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 2:** Completed UI layout of the project-- took me 10hrs. Started figuring out on how to orchestrate classes and functions with JS. Got to dive into activating UI first... I guess.
 
-**Day 3:** Done almost all of of UI functionalities. Started tying different modules like the UI, json data and the processes in between. Still feels I have an unclean code. :(
+**Day 3:** Done almost all of of UI functionalities. Started tying different modules like the UI, json data and the processes in between. Still feels I have an unclean code. 😒
 
-**Day 4:** Realized that app doesnt need a sidebar and ditched it.
+**Day 4:** Realized that app doesnt need a sidebar and removed it. Formatted dates using `dayjs` (2kB) instead of `date-fns` which is too heavy for a small todo app.
 
 </br>
 
 ## Screenshot
 
+### Project listing
+
 ![Screenshot](https://github.com/hello-damiro/todo/blob/main/src/assets/images/screenshot.png?raw=true)
+
+### Add Project UI
+
+![Screenshot](https://github.com/hello-damiro/todo/blob/main/src/assets/images/screenshot-2.png?raw=true)
 
 </br>
 

@@ -31,6 +31,17 @@ export class CreateCard {
         );
     }
 
+    emptyFields() {
+        this.projectTitle.value = '';
+        this.projectDueDate.value = '';
+        this.taskFields = _$('.task-field');
+        this.taskFields.forEach((field) => field.remove());
+        this.projectNote.value = '';
+        this.projectColor.value = 'white';
+        this.createCard.style.backgroundColor = colors['white'];
+        this.projectBookmark.classList.remove('bookmarked');
+    }
+
     editCard(index) {
         this.projectTitle.value = this.projects[index].title;
         this.projectDueDate.value = this.projects[index].due_date;

@@ -85,6 +85,47 @@ export class DB {
                 ],
                 note: 'Successfully launch a new product into the market through effective planning and execution.',
             },
+            {
+                title: 'Employee Training Program',
+                due_date: '2023-11-15',
+                bookmark: true,
+                color: 'green',
+                tasks: [
+                    { name: 'Assess training needs', priority: true },
+                    { name: 'Develop training modules', priority: false },
+                    { name: 'Deliver training sessions', priority: false },
+                    { name: 'Assess training effectiveness', priority: false },
+                    { name: 'Provide ongoing training and support', priority: false },
+                ],
+                note: 'Improve employee skills and performance through targeted and effective training programs.',
+            },
+            {
+                title: 'Sales Team Performance',
+                due_date: '2023-12-10',
+                bookmark: false,
+                color: 'yellow',
+                tasks: [
+                    { name: 'Analyze sales metrics', priority: true },
+                    { name: 'Identify areas for improvement', priority: false },
+                    { name: 'Develop sales training program', priority: false },
+                    { name: 'Implement sales training program', priority: false },
+                    { name: 'Monitor and evaluate sales team', priority: true },
+                ],
+                note: 'Improve sales team performance and increase revenue through effective training and support.',
+            },
+            {
+                title: 'Customer Service Improvement',
+                due_date: '2024-01-15',
+                bookmark: true,
+                color: 'pink',
+                tasks: [
+                    { name: 'Analyze customer feedback', priority: false },
+                    { name: 'Develop service improvement plan', priority: false },
+                    { name: 'Implement service improvements', priority: false },
+                    { name: 'Monitor customer satisfaction', priority: true },
+                ],
+                note: 'Enhance customer experience and satisfaction through effective customer service improvements and training.',
+            },
         ];
     }
 }

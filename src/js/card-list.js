@@ -44,6 +44,12 @@ export class ListCards {
         });
     }
 
+    listenCurtain() {
+        this.curtain.addEventListener('click', () => {
+            this.openAddProjectUI();
+        });
+    }
+
     renderProjectDetails(projects) {
         this.projectTitles.forEach((title, index) => {
             title.textContent = projects[index].title;
@@ -166,6 +172,7 @@ export class ListCards {
         this.renderEmptyCard();
         this.applyColors();
         this.listenLogoButton();
+        this.listenCurtain();
         this.toggleProjectBookmark();
         this.toggleTaskPriority();
         this.deleteTask();

@@ -1,6 +1,6 @@
-import { $, _$, cardHTML, emptyCard } from './constants';
-import { taskListHTML } from './helpers';
-import { getColor } from './helpers';
+import { $, _$, cardHTML, colors } from './constants';
+import { addTaskField } from './helpers';
+import dayjs from 'dayjs';
 
 export class Card {
     constructor(titleOrJson, dueDate, isBookmarked, color, tasks, note) {
@@ -27,43 +27,81 @@ export class Card {
         this.projectsGrid.insertAdjacentHTML('beforeend', cardHTML);
 
         let card = $('.new-card');
-        let projectTitle = card.querySelector('.title');
-        let projectDueDate = card.querySelector('.due-date');
-        let projectBookmark = card.querySelector('.bookmark');
-        let projectTasks = card.querySelector('.tasks');
-        let projectNote = card.querySelector('.note');
+        let cardTitle = card.querySelector('.title');
+        let cardDueDate = card.querySelector('.due-date');
+        let cardBookmark = card.querySelector('.bookmark');
+        let cardTasks = card.querySelector('.tasks');
+        let cardNote = card.querySelector('.note');
+        let cardEdit = card.querySelector('.edit');
+        let cardDelete = card.querySelector('.delete-project');
 
-        projectTitle.textContent = this.title;
-        projectDueDate.textContent = this.due_date;
-        console.log(this.color);
-        card.style.backgroundColor = getColor(this.color);
-        projectNote.textContent = this.note;
+        cardTitle.textContent = this.title;
+        cardDueDate.textContent = dayjs(this.due_date).format('DD MMM YYYY');
+        card.style.backgroundColor = this.getColor(this.color);
+        cardNote.textContent = this.note;
 
-        if (this.bookmark) projectBookmark.classList.remove('hidden');
-        else projectBookmark.classList.add('hidden');
+        cardBookmark.addEventListener('click', () => cardBookmark.classList.add('hidden'));
+        if (this.bookmark) cardBookmark.classList.remove('hidden');
+        else cardBookmark.classList.add('hidden');
 
-        for (let i = 0; i < this.tasks.length; i++) {
-            let isPriority = this.tasks[i].priority ? 'checked' : '';
+        this.tasks.forEach((task, i) => {
             let name = this.tasks[i].name;
-            let task = taskListHTML(name, isPriority);
-            projectTasks.insertAdjacentHTML('beforeend', task);
-        }
+            const parentLi = document.createElement('li');
+            cardTasks.appendChild(parentLi);
+
+            const nameH5Child = document.createElement('h5');
+            nameH5Child.textContent = name;
+            parentLi.appendChild(nameH5Child);
+            task.priority ? nameH5Child.classList.add('checked') : '';
+            nameH5Child.addEventListener('click', () => {
+                nameH5Child.classList.toggle('checked');
+                // POINT TO CONTROL FOR ARRAY MANIPULATION
+            });
+
+            const deleteDivChild = document.createElement('div');
+            deleteDivChild.classList.add('delete-task');
+            parentLi.appendChild(deleteDivChild);
+            deleteDivChild.addEventListener('click', () => {
+                parentLi.remove();
+                // POINT TO CONTROL FOR ARRAY MANIPULATION
+            });
+        });
+
+        cardEdit.addEventListener('click', () => {
+            this.copyCardToEdit();
+        });
+
+        cardDelete.addEventListener('click', () => {
+            card.remove();
+            // POINT TO CONTROL FOR ARRAY MANIPULATION
+        });
 
         card.classList.remove('new-card');
-        this.renderEmptyCard();
     }
 
-    activateCard() {}
+    getColor(color) {
+        if (color == '') color = 'white';
+        return colors[color];
+    }
 
-    renderEmptyCard() {
-        let emptyCards = _$('.empty-card');
-        let cards = _$('.card');
-        let minCard = 5;
-        emptyCards.forEach((emptyCard) => emptyCard.remove());
-        if (cards.length < minCard) {
-            for (let i = 0; i < minCard - cards.length; i++) {
-                this.projectsGrid.insertAdjacentHTML('beforeend', emptyCard);
-            }
-        }
+    copyCardToEdit() {
+        console.log('edit');
+        let createCard = $('.create-card');
+        let createTitle = $('#add-project-title');
+        let createDueDate = $('#add-project-due');
+        let createNote = $('#add-project-note');
+        let createColor = $('.add-project-color');
+        let createBookmark = $('.add-project-bookmark');
+
+        createTitle.value = this.title;
+        createDueDate.value = this.dueDate;
+        createNote.value = this.note;
+        createBookmark.classList.remove('bookmarked');
+        createColor.value = 'white';
+        createCard.style.backgroundColor = colors['white'];
+
+        this.tasks.forEach((field) => {
+            addTaskField();
+        });
     }
 }

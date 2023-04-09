@@ -16,6 +16,3 @@ export const colors = {
     green: '#B7F2A9',
     pink: '#FFBEDC',
 };
-
-export let PROCESS_TYPE = 'create'; // create or edit
-export let PROCESS_INDEX = 9999;

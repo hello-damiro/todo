@@ -7,8 +7,8 @@ export class Card {
         if (typeof titleOrJson === 'object') {
             const project = titleOrJson;
             this.title = project.title;
-            this.dueDate = project.dueDate;
-            this.isBookmarked = project.isBookmarked;
+            this.dueDate = project.due_date;
+            this.isBookmarked = project.bookmark;
             this.color = project.color;
             this.tasks = project.tasks;
             this.note = project.note;
@@ -36,7 +36,7 @@ export class Card {
         let cardDelete = card.querySelector('.delete-project');
 
         cardTitle.textContent = this.title;
-        cardDueDate.textContent = dayjs(this.due_date).format('DD MMM YYYY');
+        cardDueDate.textContent = dayjs(this.dueDate).format('DD MMM YYYY');
         card.style.backgroundColor = this.getColor(this.color);
         cardNote.textContent = this.note;
 
@@ -85,7 +85,9 @@ export class Card {
     }
 
     copyCardToEdit() {
-        console.log('edit');
+        let createTaskList = $('.task-lists');
+        createTaskList.innerHTML = '';
+
         let createCard = $('.create-card');
         let createTitle = $('#add-project-title');
         let createDueDate = $('#add-project-due');
@@ -96,12 +98,12 @@ export class Card {
         createTitle.value = this.title;
         createDueDate.value = this.dueDate;
         createNote.value = this.note;
-        createBookmark.classList.remove('bookmarked');
-        createColor.value = 'white';
-        createCard.style.backgroundColor = colors['white'];
+        createColor.value = colors[this.color];
+        createCard.style.backgroundColor = colors[this.color];
 
-        this.tasks.forEach((field) => {
-            addTaskField();
-        });
+        if (this.isBookmarked) createBookmark.classList.add('bookmarked');
+        else createBookmark.classList.remove('bookmarked');
+
+        this.tasks.forEach((task) => addTaskField(task.name, task.priority));
     }
 }

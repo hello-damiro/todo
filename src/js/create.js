@@ -1,16 +1,8 @@
-import { $, _$, colors, fieldHTML } from './constants';
+import { $, _$, colors } from './constants';
 import { addTaskField } from './helpers';
-import dayjs from 'dayjs';
 
-export class Control {
+export class Create {
     constructor() {
-        this.logo = $('.logo > img');
-        this.logoButton = $('.logo');
-        this.logoRotation = 0;
-        this.createUI = $('.create-container').parentNode;
-        this.curtain = $('.curtain');
-        this.date = $('.clock');
-
         this.createCard = $('.create-card');
         this.createTitle = $('#add-project-title');
         this.createTitleAlert = $('.alert');
@@ -24,43 +16,21 @@ export class Control {
     }
 
     init() {
-        this.setDate();
-        this.listenLogoButton();
-        this.listenCurtain();
         this.listenTaskField();
         this.listenProjectColor();
+        this.listenProjectBookmark();
         this.listenCreateButton();
-    }
-
-    setDate() {
-        this.currentDate = dayjs().format('DD MMM YYYY');
-        this.date.textContent = this.currentDate;
-    }
-
-    toggleCreateUI() {
-        this.logoRotation += 45;
-        this.logo.style.transform = 'rotate(' + this.logoRotation + 'deg)';
-        this.logo.style.transition = 'transform 0.3s ease-out';
-        this.createUI.classList.toggle('hidden');
-        window.scrollTo(0, 0);
-    }
-
-    listenLogoButton() {
-        this.logoButton.addEventListener('click', () => {
-            this.emptyCreateFields();
-            this.toggleCreateUI();
-        });
-    }
-
-    listenCurtain() {
-        this.curtain.addEventListener('click', () => {
-            this.toggleCreateUI();
-        });
     }
 
     listenProjectColor() {
         this.createColor.addEventListener('change', (e) => {
             this.createCard.style.backgroundColor = colors[e.target.value];
+        });
+    }
+
+    listenProjectBookmark() {
+        this.createBookmark.addEventListener('click', () => {
+            this.createBookmark.classList.toggle('bookmarked');
         });
     }
 
@@ -100,3 +70,5 @@ export class Control {
         taskFields.forEach((field) => field.remove());
     }
 }
+
+// class CardEdit extends Card {}

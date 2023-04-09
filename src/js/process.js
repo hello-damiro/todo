@@ -24,7 +24,7 @@ export class Process {
         this.taskFields.forEach((field) => field.remove());
         this.projectNote.value = '';
         this.projectColor.value = 'white';
-        this.createCard.style.backgroundColor = colors['white'];
+        this.createCardUI.style.backgroundColor = colors['white'];
         this.projectBookmark.classList.remove('bookmarked');
     }
 

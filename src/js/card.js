@@ -1,5 +1,6 @@
 import { $, _$, cardHTML, colors } from './constants';
-import { addTaskField } from './helpers';
+import { mainUI } from './main-ui';
+import { events } from './pubsub';
 import dayjs from 'dayjs';
 
 export class Card {
@@ -69,6 +70,8 @@ export class Card {
 
         cardEdit.addEventListener('click', () => {
             this.copyCardToEdit();
+            events.emit('create-UI-status', true);
+            events.emit('create-UI-type', false);
         });
 
         cardDelete.addEventListener('click', () => {
@@ -98,12 +101,12 @@ export class Card {
         createTitle.value = this.title;
         createDueDate.value = this.dueDate;
         createNote.value = this.note;
-        createColor.value = colors[this.color];
+        this.color == '' ? (createColor.value = 'white') : (createColor.value = this.color);
         createCard.style.backgroundColor = colors[this.color];
 
         if (this.isBookmarked) createBookmark.classList.add('bookmarked');
         else createBookmark.classList.remove('bookmarked');
 
-        this.tasks.forEach((task) => addTaskField(task.name, task.priority));
+        this.tasks.forEach((task) => mainUI.addTaskField(task.name, task.priority));
     }
 }

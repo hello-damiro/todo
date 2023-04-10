@@ -34,13 +34,12 @@ export function mainUI() {
     });
     createTaskFieldButton.addEventListener('click', () => addTaskField());
     createBookmark.addEventListener('click', () => createBookmark.classList.toggle('bookmarked'));
-    createColor.addEventListener(
-        'change',
-        (e) => (createCard.style.backgroundColor = colors[e.target.value])
-    );
+    createColor.addEventListener('change', (e) => {
+        createCard.style.backgroundColor = colors[e.target.value];
+    });
     createProjectButton.addEventListener('click', () => {
         createTitleAlert.textContent = '';
-        if (createTitle.value != '') processForm(newOrEdit);
+        if (createTitle.value != '') processForm(true);
         else createTitleAlert.textContent = 'Title is required';
 
         // ONCE CREATED, RE-RENDER CARDS
@@ -110,4 +109,9 @@ export function mainUI() {
             priorityField.classList.toggle('prioritized')
         );
     }
+
+    return {
+        addTaskField: addTaskField,
+        renderEmptyCard: renderEmptyCard,
+    };
 }

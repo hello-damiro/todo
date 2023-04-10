@@ -1,5 +1,5 @@
 import { $, _$, cardHTML, colors } from './constants';
-import { mainUI } from './main-ui';
+import { ui } from '..';
 import { events } from './pubsub';
 import dayjs from 'dayjs';
 
@@ -71,7 +71,7 @@ export class Card {
         cardEdit.addEventListener('click', () => {
             this.copyCardToEdit();
             events.emit('create-UI-status', true);
-            events.emit('create-UI-type', false);
+            // events.emit('create-UI-type', false);
         });
 
         cardDelete.addEventListener('click', () => {
@@ -107,6 +107,6 @@ export class Card {
         if (this.isBookmarked) createBookmark.classList.add('bookmarked');
         else createBookmark.classList.remove('bookmarked');
 
-        this.tasks.forEach((task) => mainUI.addTaskField(task.name, task.priority));
+        this.tasks.forEach((task) => ui.addTaskField(task.name, task.priority));
     }
 }

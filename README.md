@@ -16,6 +16,8 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 5:** Cant believe Im on my 5th day 😑 and still in the process of understanding coupling. at the time im experimenting with pubsub, webpack crashes. 😭😭😭
 
+**Day 6:** Understanding various module pattern is the key! Recognizing different module patterns will be beneficial for various purposes such as reading documentations, reading other codes and considering strategic advantages in design implementations.
+
 </br>
 
 ## Screenshot

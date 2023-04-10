@@ -4,7 +4,7 @@ import { events } from './pubsub';
 import dayjs from 'dayjs';
 
 export class Card {
-    constructor(titleOrJson, dueDate, isBookmarked, color, tasks, note) {
+    constructor(titleOrJson, dueDate, isBookmarked, color, tasks, note, index) {
         if (typeof titleOrJson === 'object') {
             const project = titleOrJson;
             this.title = project.title;
@@ -13,6 +13,7 @@ export class Card {
             this.color = project.color;
             this.tasks = project.tasks;
             this.note = project.note;
+            this.index = project.index;
         } else {
             this.title = title;
             this.dueDate = dueDate;
@@ -20,43 +21,53 @@ export class Card {
             this.color = color;
             this.tasks = tasks;
             this.note = note;
+            this.index = index;
         }
+
+        this.tasksArray = [];
     }
 
     render() {
         this.projectsGrid = $('.projects');
         this.projectsGrid.insertAdjacentHTML('beforeend', cardHTML);
 
-        let card = $('.new-card');
-        let cardTitle = card.querySelector('.title');
-        let cardDueDate = card.querySelector('.due-date');
-        let cardBookmark = card.querySelector('.bookmark');
-        let cardTasks = card.querySelector('.tasks');
-        let cardNote = card.querySelector('.note');
-        let cardEdit = card.querySelector('.edit');
-        let cardDelete = card.querySelector('.delete-project');
+        this.card = $('.new-card');
+        this.cardTitle = this.card.querySelector('.title');
+        this.cardDueDate = this.card.querySelector('.due-date');
+        this.cardBookmark = this.card.querySelector('.bookmark');
+        this.cardTasks = this.card.querySelector('.tasks');
+        this.cardNote = this.card.querySelector('.note');
+        this.cardEdit = this.card.querySelector('.edit');
+        this.cardDelete = this.card.querySelector('.delete-project');
 
-        cardTitle.textContent = this.title;
-        cardDueDate.textContent = dayjs(this.dueDate).format('DD MMM YYYY');
-        card.style.backgroundColor = this.getColor(this.color);
-        cardNote.textContent = this.note;
+        this.cardTitle.textContent = this.title;
+        this.cardDueDate.textContent = dayjs(this.dueDate).format('DD MMM YYYY');
+        this.card.style.backgroundColor = this.getColor(this.color);
+        this.cardNote.textContent = this.note;
 
-        cardBookmark.addEventListener('click', () => cardBookmark.classList.add('hidden'));
-        if (this.bookmark) cardBookmark.classList.remove('hidden');
-        else cardBookmark.classList.add('hidden');
+        if (this.isBookmarked) this.cardBookmark.classList.remove('hidden');
+        else this.cardBookmark.classList.add('hidden');
+        this.cardBookmark.addEventListener('click', () => {
+            this.cardBookmark.classList.toggle('hidden');
+            this.copyCardToEdit();
+            ui.setCreateType(false, this.index);
+            ui.editCard();
+        });
 
         this.tasks.forEach((task, i) => {
             let name = this.tasks[i].name;
             const parentLi = document.createElement('li');
-            cardTasks.appendChild(parentLi);
+            this.cardTasks.appendChild(parentLi);
 
             const nameH5Child = document.createElement('h5');
             nameH5Child.textContent = name;
             parentLi.appendChild(nameH5Child);
             task.priority ? nameH5Child.classList.add('checked') : '';
+
             nameH5Child.addEventListener('click', () => {
                 nameH5Child.classList.toggle('checked');
-                // POINT TO CONTROL FOR ARRAY MANIPULATION
+                this.copyCardToEdit();
+                ui.setCreateType(false, this.index);
             });
 
             const deleteDivChild = document.createElement('div');
@@ -64,22 +75,27 @@ export class Card {
             parentLi.appendChild(deleteDivChild);
             deleteDivChild.addEventListener('click', () => {
                 parentLi.remove();
-                // POINT TO CONTROL FOR ARRAY MANIPULATION
+                this.copyCardToEdit();
+                ui.setCreateType(false, this.index);
             });
         });
 
-        cardEdit.addEventListener('click', () => {
+        this.cardEdit.addEventListener('click', () => {
             this.copyCardToEdit();
+            ui.setCreateType(false, this.index);
             events.emit('create-UI-status', true);
             // events.emit('create-UI-type', false);
         });
 
-        cardDelete.addEventListener('click', () => {
+        this.cardDelete.addEventListener('click', () => {
+            this.copyCardToEdit();
+            ui.setCreateType(false, this.index);
+            ui.deleteCard();
             card.remove();
             // POINT TO CONTROL FOR ARRAY MANIPULATION
         });
 
-        card.classList.remove('new-card');
+        this.card.classList.remove('new-card');
     }
 
     getColor(color) {
@@ -89,8 +105,6 @@ export class Card {
 
     copyCardToEdit() {
         let createTaskList = $('.task-lists');
-        createTaskList.innerHTML = '';
-
         let createCard = $('.create-card');
         let createTitle = $('#add-project-title');
         let createDueDate = $('#add-project-due');
@@ -98,14 +112,16 @@ export class Card {
         let createColor = $('.add-project-color');
         let createBookmark = $('.add-project-bookmark');
 
+        createTaskList.innerHTML = '';
         createTitle.value = this.title;
         createDueDate.value = this.dueDate;
         createNote.value = this.note;
         this.color == '' ? (createColor.value = 'white') : (createColor.value = this.color);
         createCard.style.backgroundColor = colors[this.color];
 
-        if (this.isBookmarked) createBookmark.classList.add('bookmarked');
-        else createBookmark.classList.remove('bookmarked');
+        if (this.cardBookmark.classList.contains('hidden'))
+            createBookmark.classList.remove('bookmarked');
+        else createBookmark.classList.add('bookmarked');
 
         this.tasks.forEach((task) => ui.addTaskField(task.name, task.priority));
     }

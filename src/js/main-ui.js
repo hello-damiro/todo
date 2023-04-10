@@ -70,7 +70,7 @@ export function mainUI(projects) {
 
     function renderCards() {
         sortIndex();
-        // console.table(projects);
+        console.table(projects);
         grid.innerHTML = '';
         projects.forEach((project) => new Card(project).render());
         renderEmptyCard(projects.length);
@@ -110,7 +110,8 @@ export function mainUI(projects) {
     function cardModel() {
         const card = {
             title: createTitle.value,
-            due_date: createDueDate.value,
+            due_date:
+                createDueDate.value == '' ? dayjs().format('DD MMM YYYY') : createDueDate.value,
             bookmark: createBookmark.classList.contains('bookmarked'),
             color: createColor.value,
             tasks: tasksModel(),

@@ -66,8 +66,10 @@ export class Card {
 
             nameH5Child.addEventListener('click', () => {
                 nameH5Child.classList.toggle('checked');
+                this.getTaskFields(this.index);
                 this.copyCardToEdit();
                 ui.setCreateType(false, this.index);
+                ui.editCard();
             });
 
             const deleteDivChild = document.createElement('div');
@@ -75,12 +77,15 @@ export class Card {
             parentLi.appendChild(deleteDivChild);
             deleteDivChild.addEventListener('click', () => {
                 parentLi.remove();
+                this.getTaskFields(this.index);
                 this.copyCardToEdit();
                 ui.setCreateType(false, this.index);
+                ui.editCard();
             });
         });
 
         this.cardEdit.addEventListener('click', () => {
+            this.getTaskFields(this.index);
             this.copyCardToEdit();
             ui.setCreateType(false, this.index);
             events.emit('create-UI-status', true);
@@ -91,11 +96,23 @@ export class Card {
             this.copyCardToEdit();
             ui.setCreateType(false, this.index);
             ui.deleteCard();
-            card.remove();
             // POINT TO CONTROL FOR ARRAY MANIPULATION
         });
 
         this.card.classList.remove('new-card');
+    }
+
+    getTaskFields(index) {
+        this.tasksArray = [];
+        const tasks = _$('.tasks');
+        const tasksH5 = tasks[index].querySelectorAll('h5');
+        tasksH5.forEach((task, i) => {
+            const name = task.textContent;
+            const isPriority = task.classList.contains('checked');
+            const taskItem = { name: name, priority: isPriority };
+            this.tasksArray.push(taskItem);
+        });
+        // console.table(this.tasksArray);
     }
 
     getColor(color) {
@@ -123,6 +140,6 @@ export class Card {
             createBookmark.classList.remove('bookmarked');
         else createBookmark.classList.add('bookmarked');
 
-        this.tasks.forEach((task) => ui.addTaskField(task.name, task.priority));
+        this.tasksArray.forEach((task) => ui.addTaskField(task.name, task.priority));
     }
 }

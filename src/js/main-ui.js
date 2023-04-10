@@ -69,11 +69,21 @@ export function mainUI(projects) {
     }
 
     function renderCards() {
-        sortIndex();
+        // sortIndex();
         console.table(projects);
         grid.innerHTML = '';
         projects.forEach((project) => new Card(project).render());
         renderEmptyCard(projects.length);
+        storeLocal();
+    }
+
+    function storeLocal() {
+        const projectsJson = JSON.stringify(projects);
+        localStorage.setItem('todo-projects', projectsJson);
+    }
+
+    function removeLocal() {
+        localStorage.removeItem('todo-projects');
     }
 
     function processForm(newOrEdit) {

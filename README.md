@@ -1,8 +1,6 @@
 # todo
 
-The Odin Project - Intermediate JS project
-
-## Warning! This is a work in progress
+## The Odin Project - Intermediate JS project
 
 LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 

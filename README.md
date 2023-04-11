@@ -14,7 +14,7 @@ LIVE SITE [HERE](https://hello-damiro.github.io/todo)
 
 **Day 5:** Cant believe Im on my 5th day 😑 and still in the process of understanding coupling. at the time im experimenting with pubsub, webpack crashes. 😭😭😭
 
-**Day 6:** Understanding various module pattern is the key! Recognizing different module patterns will be beneficial for various purposes such as reading documentations, reading other codes and considering strategic advantages in design implementations. Finished up with localStorage feature. Theres a lot of improvement to be done in the interface and the code itself. But this should do for now.
+**Day 6:** Understanding various module pattern is the key! Recognizing different module patterns will be beneficial for various purposes such as reading documentations, reading other codes and considering strategic advantages in design implementations. Finished up with localStorage feature. Theres a lot of improvement to be done in the interface and the code itself. But this should do for now. ***Completed 10 April 2023***
 
 </br>
 
